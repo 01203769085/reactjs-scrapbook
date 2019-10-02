@@ -1,84 +1,45 @@
 import React, { Component } from "react";
+import SingleSlide from "./SingleSlide";
+import axios from "axios";
 
 export default class SlideShow extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      blogs: null
+    };
+    this.getData();
+  }
+  getData() {
+    axios({
+      method: "get",
+      url: `https://bookscrap-server.herokuapp.com/blogs`
+    })
+      .then(response => {
+        this.setState({
+          blogs: response.data
+        });
+        console.log(this.state);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  showSlide(blogs) {
+    if (blogs == null) {
+      return null;
+    } else
+      return blogs.map(blog => {
+        return <SingleSlide key={blog.id} blog={blog}></SingleSlide>;
+      });
+  }
   render() {
+    const { blogs } = this.state;
+    console.log(blogs);
     return (
       <section className="welcome-post-sliders owl-carousel">
-        {/* Single Slide */}
-        <div className="welcome-single-slide">
-          {/* Post Thumb */}
-          <img src="./static/img/bg-img/slide-1.jpg" alt="" />
-          {/* Overlay Text */}
-          <div className="project_title">
-            <div className="post-date-commnents d-flex">
-              <a href="/">May 19, 2017</a>
-              <a href="/">5 Comment</a>
-            </div>
-            <a href="/">
-              <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-          </div>
-        </div>
-        {/* Single Slide */}
-        <div className="welcome-single-slide">
-          {/* Post Thumb */}
-          <img src="./static/img/bg-img/slide-2.jpg" alt="" />
-          {/* Overlay Text */}
-          <div className="project_title">
-            <div className="post-date-commnents d-flex">
-              <a href="/">May 19, 2017</a>
-              <a href="/">5 Comment</a>
-            </div>
-            <a href="/">
-              <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-          </div>
-        </div>
-        {/* Single Slide */}
-        <div className="welcome-single-slide">
-          {/* Post Thumb */}
-          <img src="./static/img/bg-img/slide-3.jpg" alt="" />
-          {/* Overlay Text */}
-          <div className="project_title">
-            <div className="post-date-commnents d-flex">
-              <a href="/">May 19, 2017</a>
-              <a href="/">5 Comment</a>
-            </div>
-            <a href="/">
-              <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-          </div>
-        </div>
-        {/* Single Slide */}
-        <div className="welcome-single-slide">
-          {/* Post Thumb */}
-          <img src="./static/img/bg-img/slide-4.jpg" alt="" />
-          {/* Overlay Text */}
-          <div className="project_title">
-            <div className="post-date-commnents d-flex">
-              <a href="/">May 19, 2017</a>
-              <a href="/">5 Comment</a>
-            </div>
-            <a href="/">
-              <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-          </div>
-        </div>
-        {/* Single Slide */}
-        <div className="welcome-single-slide">
-          {/* Post Thumb */}
-          <img src="./static/img/bg-img/slide-4.jpg" alt="" />
-          {/* Overlay Text */}
-          <div className="project_title">
-            <div className="post-date-commnents d-flex">
-              <a href="/">May 19, 2017</a>
-              <a href="/">5 Comment</a>
-            </div>
-            <a href="/">
-              <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-            </a>
-          </div>
-        </div>
+        {this.showSlide(blogs)}
       </section>
     );
   }

@@ -1,7 +1,40 @@
 import React, { Component } from "react";
+import axios from "axios";
+import { SingleBlog } from "./SingleBlog";
 
 export default class HomeArea extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      blogs: null
+    };
+    this.getData();
+  }
+  getData() {
+    let limit = 12;
+    axios({
+      method: "get",
+      url: `https://bookscrap-server.herokuapp.com/blogs/randomblog/${limit}`
+    })
+      .then(response => {
+        this.setState({
+          blogs: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  showListBlogs(blogs) {
+    if (blogs == null) {
+      return null;
+    } else
+      return blogs.map(blog => {
+        return <SingleBlog key={blog.id} blog={blog}></SingleBlog>;
+      });
+  }
   render() {
+    var { blogs } = this.state;
     return (
       <section className="blog_area section_padding_0_80">
         <br></br>
@@ -9,249 +42,7 @@ export default class HomeArea extends Component {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-lg-8">
-              <div className="row">
-                {/* Single Post */}
-                <div className="col-12 col-md-6">
-                  <div
-                    className="single-post wow fadeInUp"
-                    data-wow-delay=".4s"
-                  >
-                    {/* Post Thumb */}
-                    <div className="post-thumb">
-                      <img src="./static/img/blog-img/2.jpg" alt="" />
-                    </div>
-                    {/* Post Content */}
-                    <div className="post-content">
-                      <div className="post-meta d-flex">
-                        <div className="post-author-date-area d-flex">
-                          {/* Post Author */}
-                          <div className="post-author">
-                            <a href="/">By Marian</a>
-                          </div>
-                          {/* Post Date */}
-                          <div className="post-date">
-                            <a href="/">May 19, 2017</a>
-                          </div>
-                        </div>
-                        {/* Post Comment & Share Area */}
-                        <div className="post-comment-share-area d-flex">
-                          {/* Post Favourite */}
-                          <div className="post-favourite">
-                            <a href="/">
-                              <i className="fa fa-heart-o" aria-hidden="true" />{" "}
-                              10
-                            </a>
-                          </div>
-                          {/* Post Comments */}
-                          <div className="post-comments">
-                            <a href="/">
-                              <i
-                                className="fa fa-comment-o"
-                                aria-hidden="true"
-                              />{" "}
-                              12
-                            </a>
-                          </div>
-                          {/* Post Share */}
-                          <div className="post-share">
-                            <a href="/">
-                              <i
-                                className="fa fa-share-alt"
-                                aria-hidden="true"
-                              />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <a href="/">
-                        <h4 className="post-headline">
-                          Where To Get The Best Sunday Roast In The Cotswolds
-                        </h4>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                {/* Single Post */}
-                <div className="col-12 col-md-6">
-                  <div
-                    className="single-post wow fadeInUp"
-                    data-wow-delay=".6s"
-                  >
-                    {/* Post Thumb */}
-                    <div className="post-thumb">
-                      <img src="./static/img/blog-img/3.jpg" alt="" />
-                    </div>
-                    {/* Post Content */}
-                    <div className="post-content">
-                      <div className="post-meta d-flex">
-                        <div className="post-author-date-area d-flex">
-                          {/* Post Author */}
-                          <div className="post-author">
-                            <a href="/">By Marian</a>
-                          </div>
-                          {/* Post Date */}
-                          <div className="post-date">
-                            <a href="/">May 19, 2017</a>
-                          </div>
-                        </div>
-                        {/* Post Comment & Share Area */}
-                        <div className="post-comment-share-area d-flex">
-                          {/* Post Favourite */}
-                          <div className="post-favourite">
-                            <a href="/">
-                              <i className="fa fa-heart-o" aria-hidden="true" />{" "}
-                              10
-                            </a>
-                          </div>
-                          {/* Post Comments */}
-                          <div className="post-comments">
-                            <a href="/">
-                              <i
-                                className="fa fa-comment-o"
-                                aria-hidden="true"
-                              />{" "}
-                              12
-                            </a>
-                          </div>
-                          {/* Post Share */}
-                          <div className="post-share">
-                            <a href="/">
-                              <i
-                                className="fa fa-share-alt"
-                                aria-hidden="true"
-                              />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <a href="/">
-                        <h4 className="post-headline">
-                          The Top Breakfast And Brunch Spots In Hove, Brighton
-                        </h4>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                {/* Single Post */}
-                <div className="col-12 col-md-6">
-                  <div
-                    className="single-post wow fadeInUp"
-                    data-wow-delay=".8s"
-                  >
-                    {/* Post Thumb */}
-                    <div className="post-thumb">
-                      <img src="./static/img/blog-img/4.jpg" alt="" />
-                    </div>
-                    {/* Post Content */}
-                    <div className="post-content">
-                      <div className="post-meta d-flex">
-                        <div className="post-author-date-area d-flex">
-                          {/* Post Author */}
-                          <div className="post-author">
-                            <a href="/">By Marian</a>
-                          </div>
-                          {/* Post Date */}
-                          <div className="post-date">
-                            <a href="/">May 19, 2017</a>
-                          </div>
-                        </div>
-                        {/* Post Comment & Share Area */}
-                        <div className="post-comment-share-area d-flex">
-                          {/* Post Favourite */}
-                          <div className="post-favourite">
-                            <a href="/">
-                              <i className="fa fa-heart-o" aria-hidden="true" />{" "}
-                              10
-                            </a>
-                          </div>
-                          {/* Post Comments */}
-                          <div className="post-comments">
-                            <a href="/">
-                              <i
-                                className="fa fa-comment-o"
-                                aria-hidden="true"
-                              />{" "}
-                              12
-                            </a>
-                          </div>
-                          {/* Post Share */}
-                          <div className="post-share">
-                            <a href="/">
-                              <i
-                                className="fa fa-share-alt"
-                                aria-hidden="true"
-                              />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <a href="/">
-                        <h4 className="post-headline">
-                          The 10 Best Pubs In The Lake District, Cumbria
-                        </h4>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                {/* Single Post */}
-                <div className="col-12 col-md-6">
-                  <div className="single-post wow fadeInUp" data-wow-delay="1s">
-                    {/* Post Thumb */}
-                    <div className="post-thumb">
-                      <img src="./static/img/blog-img/5.jpg" alt="" />
-                    </div>
-                    {/* Post Content */}
-                    <div className="post-content">
-                      <div className="post-meta d-flex">
-                        <div className="post-author-date-area d-flex">
-                          {/* Post Author */}
-                          <div className="post-author">
-                            <a href="/">By Marian</a>
-                          </div>
-                          {/* Post Date */}
-                          <div className="post-date">
-                            <a href="/">May 19, 2017</a>
-                          </div>
-                        </div>
-                        {/* Post Comment & Share Area */}
-                        <div className="post-comment-share-area d-flex">
-                          {/* Post Favourite */}
-                          <div className="post-favourite">
-                            <a href="/">
-                              <i className="fa fa-heart-o" aria-hidden="true" />{" "}
-                              10
-                            </a>
-                          </div>
-                          {/* Post Comments */}
-                          <div className="post-comments">
-                            <a href="/">
-                              <i
-                                className="fa fa-comment-o"
-                                aria-hidden="true"
-                              />{" "}
-                              12
-                            </a>
-                          </div>
-                          {/* Post Share */}
-                          <div className="post-share">
-                            <a href="/">
-                              <i
-                                className="fa fa-share-alt"
-                                aria-hidden="true"
-                              />
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <a href="/">
-                        <h4 className="post-headline">
-                          The 10 Best Brunch Spots In Newcastle, England
-                        </h4>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div className="row">{this.showListBlogs(blogs)}</div>
             </div>
             {/* ****** Blog Sidebar ****** */}
             <div className="col-12 col-sm-8 col-md-6 col-lg-4">
@@ -275,12 +66,40 @@ export default class HomeArea extends Component {
                   <div className="widget-title">
                     <h6>Been Together</h6>
                   </div>
-                  <div className="subscribe-link">CLOCK AREA</div>
+                  <div className="subscribe-link">
+                    <div className="countup" id="countup1">
+                      <span className="timeel years">00</span>&nbsp;
+                      <span className="timeel timeRefYears  badge badge-danger">
+                        years
+                      </span>
+                      &nbsp;
+                      <span className="timeel days">00</span>&nbsp;
+                      <span className="timeel timeRefDays badge badge-primary">
+                        days
+                      </span>
+                      <br></br>
+                      <span className="timeel hours">00</span> &nbsp;
+                      <span className="timeel timeRefHours badge badge-success">
+                        hours
+                      </span>
+                      &nbsp;
+                      <span className="timeel minutes">00</span> &nbsp;
+                      <span className="timeel timeRefMinutes badge badge-info">
+                        minutes
+                      </span>{" "}
+                      &nbsp;
+                      <span className="timeel seconds">00</span> &nbsp;
+                      <span className="timeel timeRefSeconds badge badge-secondary">
+                        seconds
+                      </span>{" "}
+                      &nbsp;
+                    </div>
+                  </div>
                 </div>
                 {/* Single Widget Area */}
                 <div className="single-widget-area popular-post-widget">
                   <div className="widget-title text-center">
-                    <h6>Populer Post</h6>
+                    <h6>Random Post</h6>
                   </div>
                   {/* Single Popular Post */}
                   <div className="single-populer-post d-flex">
