@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 export default class Header extends Component {
   render() {
+    let url = window.location.pathname;
     return (
       <header className="header_area">
         <div className="container">
@@ -35,17 +36,27 @@ export default class Header extends Component {
                   id="yummyfood-nav"
                 >
                   <ul className="navbar-nav" id="yummy-nav">
-                    <li className="nav-item active">
+                    <li
+                      className={url === "/" ? "nav-item active" : "nav-item"}
+                    >
                       <a className="nav-link" href="/">
-                        Home <span className="sr-only">(current)</span>
+                        Home<span className="sr-only">(current)</span>
                       </a>
                     </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="/blogs">
+                    <li
+                      className={
+                        url === "/blogs" ? "nav-item active" : "nav-item"
+                      }
+                    >
+                      <a className="nav-link" href="/blogs?page=0">
                         Blogs
                       </a>
                     </li>
-                    <li className="nav-item">
+                    <li
+                      className={
+                        url === "/upload" ? "nav-item active" : "nav-item"
+                      }
+                    >
                       <a className="nav-link" href="/upload">
                         Upload
                       </a>

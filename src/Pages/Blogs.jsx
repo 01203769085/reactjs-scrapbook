@@ -5,6 +5,7 @@ import AllBlogsArea from "../Components/AllBlogsArea";
 
 export default class Blogs extends Component {
   render() {
+    // console.log(this.props.match);
     return (
       <div>
         <BreadCumb menu="All Blogs"></BreadCumb>

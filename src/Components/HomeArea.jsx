@@ -11,7 +11,7 @@ export default class HomeArea extends Component {
     this.getData();
   }
   getData() {
-    let limit = 12;
+    let limit = 6;
     axios({
       method: "get",
       url: `https://bookscrap-server.herokuapp.com/blogs/randomblog/${limit}`
