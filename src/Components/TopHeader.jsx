@@ -19,8 +19,9 @@ export default class TopHeader extends Component {
               <div className="signup-search-area d-flex align-items-center justify-content-end">
                 <div className="login_register_area d-flex">
                   <div className="register">
-                    <a href="/">Ngũ Đức Thuận ❤ &nbsp;</a>
+                    <a href="/">Ngũ Đức Thuận</a>
                   </div>
+                  &nbsp;❤&nbsp;
                   <div className="register">
                     <a href="/">Trần Huỳnh Hồng Hạnh</a>
                   </div>

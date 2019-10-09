@@ -4,10 +4,10 @@ export class SinglePost extends Component {
   render() {
     const { blog } = this.props;
     return (
-      <div className="col-12 col-md-6 col-lg-4">
-        <div className="single-post wow fadeInUp" data-wow-delay="0.1s">
+      <div className="col-12 col-md-6 col-lg-4  ">
+        <div className="single-post wow fadeInUp " data-wow-delay="0.1s">
           {/* Post Thumb */}
-          <div className="post-thumb">
+          <div className="post-thumb ">
             <img src={blog.url} alt="" />
           </div>
           {/* Post Content */}
