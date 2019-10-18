@@ -153,7 +153,7 @@
 
             let days = Math.floor(timeDifference / (secondsInADay) * 1);
             let years = Math.floor(days / 365);
-            if (years > 1) { days = days - (years * 365) }
+            if (years >= 1) { days = days - (years * 365) }
             let hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
             let mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
             let secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
