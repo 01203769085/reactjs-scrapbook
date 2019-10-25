@@ -19,7 +19,6 @@ export default class SlideShow extends Component {
         this.setState({
           blogs: response.data
         });
-        console.log(this.state);
       })
       .catch(error => {
         console.log(error);
@@ -36,7 +35,6 @@ export default class SlideShow extends Component {
   }
   render() {
     const { blogs } = this.state;
-    console.log(blogs);
     return (
       <section className="welcome-post-sliders owl-carousel">
         {this.showSlide(blogs)}

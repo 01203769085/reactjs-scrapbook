@@ -7,13 +7,11 @@ export default class ContactArea extends Component {
     this.state = {
       txtTitle: "",
       txtDescription: "",
-      txtTimeUp: "",
-      fileImg: "",
+      txtTimeShot: "",
       urlImg: "./static/img/bg-img/contact.jpg"
     };
     this.onHandleSubmit = this.onHandleSubmit.bind(this);
     this.onHandleChange = this.onHandleChange.bind(this);
-    this.handleSelectImg = this.handleSelectImg.bind(this);
   }
   onHandleChange(event) {
     let { target } = event;
@@ -22,46 +20,44 @@ export default class ContactArea extends Component {
     this.setState({
       [name]: value
     });
-    console.log(this.state);
   }
   onSelectedImg = e => {
     if (e.target.files[0])
       this.setState({
-        fileImg: e.target.value,
         urlImg: URL.createObjectURL(e.target.files[0])
       });
-    console.log(this.state);
   };
   async onHandleSubmit(event) {
     event.preventDefault();
-    let { txtTitle, txtDescription, txtTimeUp, fileImg } = this.state;
-    if (
-      txtTitle !== "" &&
-      txtDescription !== "" &&
-      txtTimeUp !== "" &&
-      fileImg !== ""
-    ) {
-      await axios({
-        method: "POST",
-        url: "http://localhost:3000/upload",
-        data: {
-          txtTitle,
-          txtDescription,
-          txtTimeUp,
-          fileImg
-        }
+    let { txtTitle, txtDescription, txtTimeShot } = this.state;
+    let formdata = new FormData();
+    let files = document.getElementById("contact-website test").files;
+    formdata.set("title", txtTitle);
+    formdata.set("description", txtDescription);
+    formdata.set("timeShot", txtTimeShot);
+    formdata.append("files", files[0]);
+    // console.log(typeof urlImg);
+    // if (
+    //   txtTitle !== "" &&
+    //   txtDescription !== "" &&
+    //   txtTimeUp !== ""
+    // ) {
+    await axios({
+      method: "POST",
+      url: "http://localhost:3000/upload",
+      data: formdata
+    })
+      .then(request => {
+        console.log(request);
+        alert("đã gửi");
       })
-        .then(request => {
-          console.log(request);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    } else {
-      alert("Không được để trống !!!");
-    }
+      .catch(e => {
+        console.log(e);
+      });
+    // } else {
+    //   alert("Không được để trống !!!");
+    // }
   }
-  handleSelectImg() {}
   render() {
     return (
       <div className="contact-area section_padding_80">
@@ -88,7 +84,11 @@ export default class ContactArea extends Component {
                     Post bài viết ở đây !!!
                   </h2>
                   {/* Contact Form */}
-                  <form method="post" onSubmit={this.onHandleSubmit}>
+                  <form
+                    method="POST"
+                    onSubmit={this.onHandleSubmit}
+                    encType="multipart/form-data"
+                  >
                     <div className="form-group">
                       <input
                         type="text"
@@ -115,7 +115,7 @@ export default class ContactArea extends Component {
                       <input
                         type="date"
                         className="form-control"
-                        name="txtTimeUp"
+                        name="txtTimeShot"
                         id="contact-website"
                         placeholder="Ngày chụp"
                         onChange={this.onHandleChange}

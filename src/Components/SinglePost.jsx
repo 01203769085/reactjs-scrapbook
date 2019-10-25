@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import converTime from "../xulyjs/converTime";
 
 export class SinglePost extends Component {
+  componentDidMount() {
+    this.setState({
+      ...converTime
+    });
+  }
   render() {
     const { blog } = this.props;
     return (
@@ -20,7 +26,11 @@ export class SinglePost extends Component {
                 </div>
                 {/* Post Date */}
                 <div className="post-date">
-                  <a href="/">{blog.timeUp}</a>
+                  <a href="/">
+                    {this.state === null
+                      ? ""
+                      : this.state.converTime(blog.timeUp)}
+                  </a>
                 </div>
               </div>
               {/* Post Comment & Share Area */}

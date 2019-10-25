@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import converTime from "../xulyjs/converTime";
 
 export class SingleSlide extends Component {
+  componentDidMount() {
+    this.setState({
+      ...converTime
+    });
+  }
   render() {
     const { blog } = this.props;
     return (
