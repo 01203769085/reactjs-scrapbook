@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 import SinglePost from "./SinglePost";
+import { Link } from "react-router-dom";
 
 export default class AllBlogsArea extends Component {
   constructor(props) {
     super(props);
-    let current_page = window.location.search.match(/\d+/)[0];
     this.state = {
       blogs: null,
       numblogs: 0,
-      current_page
+      current_page: "0"
     };
-    this.getData(current_page);
+    this.getData(this.state.current_page);
     this.getNumData();
   }
   getNumData() {
@@ -51,6 +51,18 @@ export default class AllBlogsArea extends Component {
         return <SinglePost key={blog.id} blog={blog}></SinglePost>;
       });
   }
+  changePage = current_page => {
+    this.getData(current_page);
+    this.showListBlogs(this.state.blogs);
+    this.setState({
+      current_page
+    });
+    window.scrollTo({
+      top: 300, // could be negative value
+      left: 0,
+      behavior: "smooth"
+    });
+  };
   showNumpage(blogs, numblogs) {
     if (blogs != null && numblogs != null) {
       let sum_page = Math.ceil(this.state.numblogs / 9.0);
@@ -58,22 +70,24 @@ export default class AllBlogsArea extends Component {
       let arrayNumPage = [];
       let s;
       for (let i = 0; i < sum_page; i++) {
-        if (parseInt(current_page) === i * 9) {
-          s = (
-            <li key={i} className="page-item active">
-              <a className="page-link" href={"/blogs?page=" + i * 9}>
-                {i + 1} <span className="sr-only">(current)</span>
-              </a>
-            </li>
-          );
-        } else
-          s = (
-            <li key={i} className="page-item">
-              <a className="page-link" href={"/blogs?page=" + i * 9}>
-                {i + 1}
-              </a>
-            </li>
-          );
+        s = (
+          <li
+            key={i}
+            className={
+              parseInt(current_page) === i * 9
+                ? "page-item active"
+                : "page-item"
+            }
+          >
+            <Link
+              className="page-link"
+              to={"/blogs?page=" + i * 9}
+              onClick={() => this.changePage(i * 9)}
+            >
+              {i + 1} <span className="sr-only">(current)</span>
+            </Link>
+          </li>
+        );
         arrayNumPage.push(s);
       }
       return arrayNumPage;
