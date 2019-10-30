@@ -7,19 +7,24 @@ export class SinglePost extends Component {
       ...converTime
     });
   }
+  showBlog(blog) {
+    let element = null;
+    if (blog && blog.type === "video")
+      element = <video src={blog.url} alt="" controls="controls"></video>;
+    else
+      element = (
+        <img src={blog.url} alt="" style={{ width: "100%", height: "350px" }} />
+      );
+
+    return element;
+  }
   render() {
     const { blog } = this.props;
     return (
       <div className="col-12 col-md-6 col-lg-4" style={{ height: "500px" }}>
         <div className="single-post wow fadeInUp" data-wow-delay="0.1s">
           {/* Post Thumb */}
-          <div className="post-thumb">
-            <img
-              src={blog.url}
-              alt=""
-              style={{ width: "100%", height: "350px" }}
-            />
-          </div>
+          <div className="post-thumb">{this.showBlog(blog)}</div>
           {/* Post Content */}
           <div className="post-content">
             <div className="post-meta d-flex">
@@ -33,7 +38,7 @@ export class SinglePost extends Component {
                   <a href="/">
                     {this.state === null
                       ? ""
-                      : this.state.converTime(blog.timeUp)}
+                      : this.state.converTime(blog.timeShot)}
                   </a>
                 </div>
               </div>

@@ -618,11 +618,12 @@ li {
 :: 6.0 Blog Area CSS 
 -------------------- */
 
-.post-thumb img {
-  border-radius: 30px;
+.post-thumb img,video {
+  border-radius:4px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 }
 
 .post-meta {

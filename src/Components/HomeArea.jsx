@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { SingleBlog } from "./SingleBlog";
+import { SingleFood } from "./SingleFood";
 
 export default class HomeArea extends Component {
   constructor(props) {
@@ -25,16 +26,31 @@ export default class HomeArea extends Component {
         console.log(error);
       });
   }
-  showListBlogs(blogs) {
+  showListVideo(blogs) {
     if (blogs == null) {
       return null;
     } else
       return blogs.map(blog => {
-        return <SingleBlog key={blog.id} blog={blog}></SingleBlog>;
+        let element = null;
+        if (blog.type === "video") {
+          element = <SingleBlog key={blog.id} blog={blog}></SingleBlog>;
+        }
+        return element;
+      });
+  }
+  showListFood(blogs) {
+    if (blogs == null) {
+      return null;
+    } else
+      return blogs.map(blog => {
+        let element = null;
+        if (blog.type === "food")
+          element = <SingleFood key={blog.id} blog={blog}></SingleFood>;
+        return element;
       });
   }
   render() {
-    var { blogs } = this.state;
+    let { blogs } = this.state;
     return (
       <section className="blog_area section_padding_0_80">
         <br></br>
@@ -42,7 +58,7 @@ export default class HomeArea extends Component {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-lg-8">
-              <div className="row">{this.showListBlogs(blogs)}</div>
+              <div className="row">{this.showListVideo(blogs)}</div>
             </div>
             {/* ****** Blog Sidebar ****** */}
             <div className="col-12 col-sm-8 col-md-6 col-lg-4">
@@ -100,56 +116,7 @@ export default class HomeArea extends Component {
                 <div className="single-widget-area popular-post-widget">
                   <div className="widget-title text-center">
                     <h6>Random Post</h6>
-                  </div>
-                  {/* Single Popular Post */}
-                  <div className="single-populer-post d-flex">
-                    <img src="./static/img/sidebar-img/1.jpg" alt="" />
-                    <div className="post-content">
-                      <a href="/">
-                        <h6>Top Wineries To Visit In England</h6>
-                      </a>
-                      <p>Tuesday, October 3, 2017</p>
-                    </div>
-                  </div>
-                  {/* Single Popular Post */}
-                  <div className="single-populer-post d-flex">
-                    <img src="./static/img/sidebar-img/2.jpg" alt="" />
-                    <div className="post-content">
-                      <a href="/">
-                        <h6>The 8 Best Gastro Pubs In Bath</h6>
-                      </a>
-                      <p>Tuesday, October 3, 2017</p>
-                    </div>
-                  </div>
-                  {/* Single Popular Post */}
-                  <div className="single-populer-post d-flex">
-                    <img src="./static/img/sidebar-img/3.jpg" alt="" />
-                    <div className="post-content">
-                      <a href="/">
-                        <h6>Zermatt Unplugged the best festival</h6>
-                      </a>
-                      <p>Tuesday, October 3, 2017</p>
-                    </div>
-                  </div>
-                  {/* Single Popular Post */}
-                  <div className="single-populer-post d-flex">
-                    <img src="./static/img/sidebar-img/4.jpg" alt="" />
-                    <div className="post-content">
-                      <a href="/">
-                        <h6>Harrogate's Top 10 Independent Eats</h6>
-                      </a>
-                      <p>Tuesday, October 3, 2017</p>
-                    </div>
-                  </div>
-                  {/* Single Popular Post */}
-                  <div className="single-populer-post d-flex">
-                    <img src="./static/img/sidebar-img/5.jpg" alt="" />
-                    <div className="post-content">
-                      <a href="/">
-                        <h6>Eating Out On A Budget In Oxford</h6>
-                      </a>
-                      <p>Tuesday, October 3, 2017</p>
-                    </div>
+                    {this.showListFood(blogs)}
                   </div>
                 </div>
               </div>

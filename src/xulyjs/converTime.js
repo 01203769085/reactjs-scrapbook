@@ -1,4 +1,4 @@
-function converTime(time) {
+function converTime(time) {  
   let param = time.split("-");
   let day = param[0];
   let month = param[1];

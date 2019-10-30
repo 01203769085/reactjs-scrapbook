@@ -28,10 +28,13 @@ export default class SlideShow extends Component {
   showSlide(blogs) {
     if (blogs == null) {
       return null;
-    } else
+    } else {
       return blogs.map(blog => {
-        return <SingleSlide key={blog.id} blog={blog}></SingleSlide>;
+        if (blog.type === "img")
+          return <SingleSlide key={blog.id} blog={blog}></SingleSlide>;
+        else return null;
       });
+    }
   }
   render() {
     const { blogs } = this.state;

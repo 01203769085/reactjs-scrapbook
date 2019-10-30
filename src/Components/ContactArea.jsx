@@ -44,7 +44,7 @@ export default class ContactArea extends Component {
     // ) {
     await axios({
       method: "POST",
-      url: "http://localhost:3000/upload",
+      url: "http://bookscrap-server.herokuapp.com/upload",
       data: formdata
     })
       .then(request => {
